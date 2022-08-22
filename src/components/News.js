@@ -48,15 +48,17 @@ export class News extends Component {
       <div className='container my-3'>
         <h2>Newsapp - Top headlines</h2>
         <div className='row'>
-          <div className='col-md-4'>
-            <NewsItem title="my title" description="my description" imageUrl="https:////m.files.bbci.co.uk/modules/bbc-morph-sport-seo-meta/1.22.0/images/bbc-sport-logo.png"/>
+          {this.state.articles.map((ele) => {
+            return (
+            <div className='col-md-4' key={ele.url}>
+            <NewsItem
+              title={ele.title.slice(0, 44)} 
+              description={ele.description.slice(0, 80)} 
+              imageUrl={ele.urlToImage}
+            />
           </div>
-          <div className='col-md-4'>
-            <NewsItem title="my title" description="my description"/>
-          </div>
-          <div className='col-md-4'>
-            <NewsItem title="my title" description="my description"/>
-          </div>
+          )
+          })}
         </div>
       </div>
     )
