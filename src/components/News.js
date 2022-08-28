@@ -14,7 +14,6 @@ const News = (props) => {
   const capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
-  // document.title = `${this.capitalizeFirstLetter(props.category)} - NewsApp`;
 
   const updateNews = async () => {
     props.setProgress(10);
@@ -33,13 +32,14 @@ const News = (props) => {
   }
 
   useEffect(() => {
+    document.title = `${this.capitalizeFirstLetter(props.category)} - NewsApp`;
     updateNews();
   });
 
   const fetchMoreData = async () => {
-    setPage(page+1);
     let baseURL = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}`;
-    let requestedURL = `${baseURL}&page=${page}&pageSize=${props.pageSize}`;
+    let requestedURL = `${baseURL}&page=${page+1}&pageSize=${props.pageSize}`;
+    setPage(page+1);
     let data = await fetch(requestedURL);
     let parseData = await data.json();
 
@@ -63,7 +63,7 @@ const News = (props) => {
 
     return (
       <div className='my-3'>
-        <h2 className="text-center">
+        <h2 className="text-center" style={{marginTop: '90px'}}>
           Newsapp - Top {capitalizeFirstLetter(props.category)} headlines
         </h2>
         {loading && <Spinner />}
